@@ -729,11 +729,16 @@ class ExtendedRoadRunner(roadrunner.RoadRunner):
         shaded in blue), reactions as grey squares.
         Currently only the drawing of medium-size networks is supported.
         """
+<<<<<<< HEAD
         if sys.platform == 'win32' and 'Graphviz' not in os.environ['PATH']:
             warnings.warn("Graphviz is not installed in your machine. 'draw' command cannot produce a diagram",
                 Warning, stacklevel=2)
         elif sys.platform == 'darwin' and not any([os.path.isfile(os.path.join( p, 'dot')) for p in os.environ['PATH'].split(os.pathsep)]):
             warnings.warn("Graphviz (dot) is not installed in your machine. 'draw' command cannot produce a diagram",
+=======
+        if any([ os.access( os.path.join( p, 'dot' ), os.X_OK ) for p in os.environ['PATH'].split( os.pathsep )]):
+            warnings.warn("Graphviz is not installed in your machine. 'draw' command cannot produce a diagram",
+>>>>>>> c643a81a448b736a4ef0a5141c862fb720e8d42c
                 Warning, stacklevel=2)
         else:
             from visualization.sbmldiagram import SBMLDiagram
