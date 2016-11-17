@@ -16,7 +16,8 @@ if True: # create dummy scope
     import matplotlib
 
     fig = matplotlib.figure.Figure()
-    ax = fig.add_axes()
+    rect = 0,0,1,1
+    ax = fig.add_axes(rect)
     if not hasattr(ax, 'set_prop_cycle'):
         warnings.warn("Your copy of matplotlib does not support color cycle control. Falling back to 'Picasso' mode. Please update to matplotlib 1.5 or later if you don't like modern art.")
 
@@ -731,8 +732,8 @@ class ExtendedRoadRunner(roadrunner.RoadRunner):
         if sys.platform == 'win32' and 'Graphviz' not in os.environ['PATH']:
             warnings.warn("Graphviz is not installed in your machine. 'draw' command cannot produce a diagram",
                 Warning, stacklevel=2)
-        elif sys.platform == 'darwin' and 'graphviz' not in os.environ['PATH']:
-            warnings.warn("Graphviz is not installed in your machine. 'draw' command cannot produce a diagram",
+        elif sys.platform == 'darwin' and not any([os.path.isfile(os.path.join( p, 'dot')) for p in os.environ['PATH'].split(os.pathsep)]):
+            warnings.warn("Graphviz (dot) is not installed in your machine. 'draw' command cannot produce a diagram",
                 Warning, stacklevel=2)
         else:
             from visualization.sbmldiagram import SBMLDiagram
